@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: 216 12% 10%;
+    --accent: 120 60% 50%;
+    --primary: 210 80% 50%;
+    --surface: 216 12% 14%;
+    --text-primary: 0 0% 95%;
+    --text-secondary: 0 0% 75%;
+  }
+  
+  body {
+    @apply bg-bg text-text-primary;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+@layer components {
+  .app-container {
+    @apply max-w-container px-4 mx-auto;
+  }
+  
+  .btn-primary {
+    @apply bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-lg transition-colors duration-base font-medium;
+  }
+  
+  .btn-outline {
+    @apply border border-primary text-primary hover:bg-primary hover:text-white px-4 py-3 rounded-lg transition-colors duration-base font-medium;
+  }
+  
+  .card {
+    @apply bg-surface border border-white/10 rounded-lg p-6 shadow-card;
+  }
+  
+  .habit-card-active {
+    @apply card border-accent/30 bg-accent/5;
+  }
+  
+  .habit-card-completed {
+    @apply card border-accent/50 bg-accent/10;
+  }
+  
+  .input-field {
+    @apply bg-surface border border-white/20 rounded-md px-3 py-2 text-text-primary placeholder:text-text-secondary focus:border-accent focus:outline-none transition-colors duration-base;
+  }
+  
+  .checkbox {
+    @apply w-5 h-5 rounded-sm border-2 border-white/20 checked:bg-accent checked:border-accent transition-colors duration-base;
+  }
+  
+  .display-text {
+    @apply font-bold text-3xl leading-tight;
+  }
+  
+  .heading-text {
+    @apply font-semibold text-xl leading-normal;
+  }
+  
+  .body-text {
+    @apply text-base leading-relaxed;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulseGentle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
