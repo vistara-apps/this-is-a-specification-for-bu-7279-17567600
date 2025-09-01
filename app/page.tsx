@@ -163,56 +163,30 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-bg">
-      <div className="app-container">
-        <header className="flex items-center justify-between py-4 border-b border-white/10">
-          <div className="flex items-center space-x-3">
-            {appState === 'setup' && (
-              <button
-                onClick={() => setAppState('dashboard')}
-                className="p-2 -ml-2 text-text-secondary hover:text-text-primary transition-colors duration-base"
-              >
-                ←
-              </button>
-            )}
-            <h1 className="heading-text">{getTitle()}</h1>
-          </div>
-          <div className="flex items-center space-x-4">
-            {renderSaveFrameButton()}
-            <div className="text-2xl">🌱</div>
-          </div>
-        </header>
-        
-        <main className="py-6">
-          {appState === 'onboarding' && (
-            <Onboarding onComplete={handleOnboardingComplete} />
-          )}
-          
-          {appState === 'setup' && user && (
-            <HabitSetup
-              user={user}
-              onComplete={handleHabitSetupComplete}
-              onBack={() => setAppState('dashboard')}
-            />
-          )}
-          
-          {appState === 'dashboard' && user && (
-            <Dashboard
-              user={user}
-              onCreateHabit={() => setAppState('setup')}
-            />
-          )}
-        </main>
-
-        <footer className="py-4 border-t border-white/10 text-center">
-          <button
-            onClick={() => openUrl('https://base.org/builders/minikit')}
-            className="text-text-secondary hover:text-text-primary transition-colors duration-base text-sm"
-          >
-            Built on Base with MiniKit
-          </button>
-        </footer>
-      </div>
-    </div>
+    <AppShell 
+      title={getTitle()} 
+      showBack={appState === 'setup'} 
+      onBack={() => setAppState('dashboard')}
+      rightContent={renderSaveFrameButton()}
+    >
+      {appState === 'onboarding' && (
+        <Onboarding onComplete={handleOnboardingComplete} />
+      )}
+      
+      {appState === 'setup' && user && (
+        <HabitSetup
+          user={user}
+          onComplete={handleHabitSetupComplete}
+          onBack={() => setAppState('dashboard')}
+        />
+      )}
+      
+      {appState === 'dashboard' && user && (
+        <Dashboard
+          user={user}
+          onCreateHabit={() => setAppState('setup')}
+        />
+      )}
+    </AppShell>
   );
 }
