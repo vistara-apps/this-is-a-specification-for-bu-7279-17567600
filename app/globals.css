@@ -5,65 +5,151 @@
 @layer base {
   :root {
     --bg: 216 12% 10%;
+    --bg-lighter: 216 12% 13%;
     --accent: 120 60% 50%;
+    --accent-light: 120 60% 60%;
+    --accent-dark: 120 60% 40%;
     --primary: 210 80% 50%;
+    --primary-light: 210 80% 60%;
+    --primary-dark: 210 80% 40%;
     --surface: 216 12% 14%;
+    --surface-light: 216 12% 18%;
+    --surface-dark: 216 12% 12%;
     --text-primary: 0 0% 95%;
     --text-secondary: 0 0% 75%;
+    --text-tertiary: 0 0% 55%;
+    --error: 0 70% 60%;
+    --warning: 40 80% 60%;
+    --success: 120 60% 50%;
   }
   
   body {
-    @apply bg-bg text-text-primary;
+    @apply bg-bg text-text-primary antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  /* Improved focus styles for better accessibility */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-light;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 @layer components {
   .app-container {
-    @apply max-w-container px-4 mx-auto;
+    @apply max-w-container px-4 mx-auto w-full;
   }
   
+  /* Button styles with improved states */
   .btn-primary {
-    @apply bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-lg transition-colors duration-base font-medium;
+    @apply bg-primary hover:bg-primary-light active:bg-primary-dark text-white px-4 py-3 rounded-md 
+           transition-all duration-base font-medium shadow-button hover:shadow-none
+           focus-visible:ring-2 focus-visible:ring-primary-light focus-visible:ring-offset-2 focus-visible:ring-offset-bg
+           disabled:opacity-50 disabled:pointer-events-none;
   }
   
   .btn-outline {
-    @apply border border-primary text-primary hover:bg-primary hover:text-white px-4 py-3 rounded-lg transition-colors duration-base font-medium;
+    @apply border border-primary text-primary hover:bg-primary/10 active:bg-primary/20 
+           px-4 py-3 rounded-md transition-all duration-base font-medium
+           focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-secondary {
+    @apply bg-surface hover:bg-surface-light active:bg-surface-dark text-text-primary 
+           px-4 py-3 rounded-md transition-all duration-base font-medium
+           focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-bg
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-accent {
+    @apply bg-accent hover:bg-accent-light active:bg-accent-dark text-black 
+           px-4 py-3 rounded-md transition-all duration-base font-medium shadow-button hover:shadow-none
+           focus-visible:ring-2 focus-visible:ring-accent-light focus-visible:ring-offset-2 focus-visible:ring-offset-bg
+           disabled:opacity-50 disabled:pointer-events-none;
   }
   
+  /* Card styles with improved hover states */
   .card {
-    @apply bg-surface border border-white/10 rounded-lg p-6 shadow-card;
+    @apply bg-surface border border-white/10 rounded-lg p-6 shadow-card 
+           transition-all duration-base hover:shadow-card-hover;
   }
   
   .habit-card-active {
-    @apply card border-accent/30 bg-accent/5;
+    @apply card border-accent/30 bg-accent/5 hover:border-accent/40 hover:bg-accent/10;
   }
   
   .habit-card-completed {
-    @apply card border-accent/50 bg-accent/10;
+    @apply card border-accent/50 bg-accent/10 hover:border-accent/60;
   }
   
+  /* Form elements with improved states */
   .input-field {
-    @apply bg-surface border border-white/20 rounded-md px-3 py-2 text-text-primary placeholder:text-text-secondary focus:border-accent focus:outline-none transition-colors duration-base;
+    @apply bg-surface border border-white/20 rounded-md px-4 py-3 text-text-primary 
+           placeholder:text-text-secondary focus:border-accent focus:outline-none 
+           transition-colors duration-base w-full
+           disabled:opacity-60 disabled:cursor-not-allowed;
   }
   
   .checkbox {
-    @apply w-5 h-5 rounded-sm border-2 border-white/20 checked:bg-accent checked:border-accent transition-colors duration-base;
+    @apply w-5 h-5 rounded-sm border-2 border-white/20 checked:bg-accent checked:border-accent 
+           transition-colors duration-base focus:ring-2 focus:ring-accent/50 focus:ring-offset-1 focus:ring-offset-bg;
   }
   
+  /* Typography system */
   .display-text {
-    @apply font-bold text-3xl leading-tight;
+    @apply font-bold text-4xl leading-tight tracking-tight;
   }
   
   .heading-text {
-    @apply font-semibold text-xl leading-normal;
+    @apply font-semibold text-2xl leading-normal;
+  }
+  
+  .subheading-text {
+    @apply font-medium text-xl leading-normal;
   }
   
   .body-text {
     @apply text-base leading-relaxed;
   }
+
+  .body-text-sm {
+    @apply text-sm leading-relaxed;
+  }
+
+  .caption-text {
+    @apply text-xs leading-normal text-text-secondary;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center px-2 py-1 rounded-md text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply badge bg-primary/20 text-primary-light;
+  }
+
+  .badge-accent {
+    @apply badge bg-accent/20 text-accent-light;
+  }
+
+  .badge-neutral {
+    @apply badge bg-white/10 text-text-secondary;
+  }
+
+  /* Icon button */
+  .icon-button {
+    @apply p-2 rounded-full hover:bg-white/10 transition-colors duration-base
+           focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+  }
 }
 
+/* Animation keyframes */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -74,7 +160,37 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
+@keyframes slideDown {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
 @keyframes pulseGentle {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.7; }
+}
+
+@keyframes bounceGentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
